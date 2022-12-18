@@ -66,7 +66,12 @@ func main() {
 			}
 			logger := log.New(lf, "", log.Ldate|log.Ltime|log.LUTC)
 
-			ssids := args
+			contents, err := os.ReadFile(args[0])
+			if err != nil {
+				return err
+			}
+
+			ssids := strings.Split(strings.TrimSpace(string(contents)), "\n")
 			if len(ssids) == 0 {
 				err := errors.New("no trusted SSIDs, nothing to do")
 				logger.Print(err)
@@ -75,7 +80,7 @@ func main() {
 
 			logger.Printf("bluetooth will be enabled when connected to SSIDs: %s\n", strings.Join(ssids, ", "))
 
-			t := time.NewTicker(15 * time.Second)
+			t := time.NewTicker(1 * time.Minute)
 		NEXTTICK:
 			for {
 				select {

@@ -7,8 +7,7 @@
         <key>ProgramArguments</key>
         <array>
             <string>/usr/local/bin/btdaemon</string>
-            <string>Yggdrasil</string>
-            <string>ai2 guest</string>
+            <string>/etc/btdaemon/trust.txt</string>
         </array>
         <key>KeepAlive</key>
         <true/>

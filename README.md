@@ -33,16 +33,12 @@ Put it in `/usr/local/bin`:
 
 ```
 sudo mv btdaemon /usr/local/bin/.
-sudo chown root:wheel /usr/local/bin/btdaemon
-sudo chmod 755 /usr/local/bin/btdaemon
 ```
 
 Put the plist file in `/Library/LaunchAgents`:
 
 ```
 sudo cp net.codeviking.btdaemon.plist /Library/LaunchAgents
-sudo chown root:wheel /Library/LaunchAgents/net.codeviking.btdaemon.plist
-sudo chmod 644 /Library/LaunchAgents/net.codeviking.btdaemon.plist
 ```
 
 Make a directory for the daemon's logs. The permission juggling is important,
@@ -53,11 +49,17 @@ sudo mkdir /var/log/net.codeviking.btdaemon
 sudo chown $(id -u -n):$(id -g -n) /var/log/net.codeviking.btdaemon
 ```
 
+Create a file with a list of trusted ssids:
+
+```
+sudo mkdir /etc/btdaemon
+sudo echo "<TrustedSSID> >> /etc/btdaemon/trust.txt
+```
 
 Load and start the daemon:
 
 ```
-launchctl load /Library/LaunchAgents/net.codeviking.btdaemon.plist
+launchctl load net.codeviking.btdaemon.plist
 ```
 
 See what it's doing:
@@ -69,7 +71,6 @@ tail -f /var/log/net.codeviking.btdaemon/stdout.log
 To stop the daemon run:
 
 ```
-launchctl unload /Library/LaunchAgents/net.codeviking.btdaemon.plist
+launchctl unload net.codeviking.btdaemon.plist
 ```
-
 
